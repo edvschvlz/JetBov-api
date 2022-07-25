@@ -50,4 +50,4 @@
 ## API Reference
 
 - [Swagger](http://localhost:8080/swagger-ui/index.html) (Project must be running)
-- [Postman Collection](./JetBov-API.postman_collection)
+- [Postman Collection](./JetBov-API.postman_collection.json)
