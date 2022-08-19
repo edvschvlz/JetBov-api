@@ -27,7 +27,7 @@
     git clone https://github.com/edvschvlz/JetBov-api.git
     ```
 
-2. Change `application.properties.example` to `application.properties` and set the database connection
+2. Set the database connection in `application.properties` 
 
 
 3. Install dependencies
