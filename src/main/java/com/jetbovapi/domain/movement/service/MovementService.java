@@ -10,6 +10,7 @@ import com.jetbovapi.domain.movement.model.MovementDTO;
 import com.jetbovapi.domain.movement.MovementRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,26 +26,28 @@ public class MovementService {
         this.animalRepository = animalRepository;
     }
 
-    public Movement saveMovement(MovementDTO movementDTO) throws BusinessException {
+    public Movement saveMovement(MovementDTO movementDTO) throws Exception {
         this.validateMovement(movementDTO);
         this.moveAnimals(movementDTO.getAnimals());
 
         Movement movement = new Movement();
-        movement.setAnimals(
-                movementDTO.getAnimals().stream()
-                        .map(earring -> animalRepository.getByEarring(earring))
-                        .toList());
+        List<Animal> animalsList = new ArrayList<>();
+        for (String earring : movementDTO.getAnimals()) {
+            Animal animal = animalRepository.getByEarring(earring);
+            animalsList.add(animal);
+        }
+        movement.setAnimals(animalsList);
         movement.setArea(areaRepository.getByName(movementDTO.getArea()));
         movement.setDays(movementDTO.getDays());
 
         return movementRepository.save(movement);
     }
 
-    public List<Movement> getAllMovements() {
+    public List<Movement> getAllMovements() throws Exception {
         return movementRepository.getAll();
     }
 
-    public void validateMovement(MovementDTO movementDTO) throws BusinessException {
+    public void validateMovement(MovementDTO movementDTO) throws Exception {
         if (movementDTO.getArea() == null || movementDTO.getArea().isBlank()) {
             throw new BusinessException("Invalid area!");
         }
@@ -91,17 +94,13 @@ public class MovementService {
         }
     }
 
-    public void moveAnimals(List<String> animals) {
+    public void moveAnimals(List<String> animals) throws Exception {
         for (String earring : animals) {
             Animal animal = animalRepository.getByEarring(earring);
             Movement movement = movementRepository.getByAnimal(animal);
 
             if (movement != null) {
-                Animal animalToRemove = movement.getAnimals().stream().filter(a -> a.getEarring().equals(animal.getEarring())).findAny().orElse(null);
-                if (animalToRemove != null) {
-                    movementRepository.removeAnimal(movement, animalToRemove);
-                    animalToRemove.setWeight(animalToRemove.getWeight() + (movement.getArea().getGmd() * movement.getDays()));
-                }
+                movementRepository.removeAnimal(movement, animal);
             }
         }
     }

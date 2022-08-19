@@ -1,6 +1,5 @@
 package com.jetbovapi.domain.animal.service;
 
-import com.jetbovapi.domain.exception.BusinessException;
 import com.jetbovapi.domain.animal.model.Animal;
 import com.jetbovapi.domain.animal.AnimalRepository;
 import org.springframework.stereotype.Service;
@@ -18,17 +17,17 @@ public class AnimalService {
         this.animalSchemaValidation = animalSchemaValidation;
     }
 
-    public void saveAnimal(Animal animal) throws BusinessException {
+    public void saveAnimal(Animal animal) throws Exception {
         animalSchemaValidation.validate(animal);
         animalRepository.save(animal);
     }
 
-    public List<Animal> getAllAnimalsSpecified(List<String> animals) throws BusinessException {
+    public List<Animal> getAllAnimalsSpecified(List<String> animals) throws Exception {
         animalSchemaValidation.validateEarrings(animals);
         return animalRepository.getAllSpecified(animals);
     }
 
-    public List<Animal> getAllAnimals() {
+    public List<Animal> getAllAnimals() throws Exception {
         return animalRepository.getAll();
     }
 }

@@ -2,7 +2,6 @@ package com.jetbovapi.domain.area;
 
 import com.jetbovapi.domain.area.model.Area;
 import com.jetbovapi.domain.area.service.AreaService;
-import com.jetbovapi.domain.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +25,13 @@ public class AreaController {
         try {
             areaService.saveArea(area);
             return ResponseEntity.status(HttpStatus.CREATED).body(area);
-        } catch (BusinessException e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
     @GetMapping
-    public List<Area> findAllAreas() {
+    public List<Area> findAllAreas() throws Exception {
         return areaService.getAllAreas();
     }
 }

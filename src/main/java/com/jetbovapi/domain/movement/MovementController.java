@@ -1,6 +1,5 @@
 package com.jetbovapi.domain.movement;
 
-import com.jetbovapi.domain.exception.BusinessException;
 import com.jetbovapi.domain.movement.model.Movement;
 import com.jetbovapi.domain.movement.model.MovementDTO;
 import com.jetbovapi.domain.movement.service.MovementService;
@@ -26,13 +25,14 @@ public class MovementController {
         try {
             Movement movement = movementService.saveMovement(movementDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(movement);
-        } catch (BusinessException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
     @GetMapping
-    public List<Movement> findAllMovements() {
+    public List<Movement> findAllMovements() throws Exception {
         return movementService.getAllMovements();
     }
 }

@@ -1,6 +1,5 @@
 package com.jetbovapi.domain.animal;
 
-import com.jetbovapi.domain.exception.BusinessException;
 import com.jetbovapi.domain.animal.model.Animal;
 import com.jetbovapi.domain.animal.service.AnimalService;
 import org.springframework.http.HttpStatus;
@@ -24,13 +23,13 @@ public class AnimalController {
         try {
             animalService.saveAnimal(animal);
             return ResponseEntity.status(HttpStatus.CREATED).body(animal);
-        } catch (BusinessException e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
     @GetMapping
-    public List<Animal> findAllAnimals() {
+    public List<Animal> findAllAnimals() throws Exception {
         return animalService.getAllAnimals();
     }
 
@@ -39,7 +38,7 @@ public class AnimalController {
         try {
             List<Animal> animalList = animalService.getAllAnimalsSpecified(earring);
             return ResponseEntity.status(HttpStatus.OK).body(animalList);
-        } catch (BusinessException e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }

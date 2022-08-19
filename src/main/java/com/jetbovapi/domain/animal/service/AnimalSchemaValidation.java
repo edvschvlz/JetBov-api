@@ -16,7 +16,7 @@ public class AnimalSchemaValidation {
         this.animalRepository = animalRepository;
     }
 
-    public void validate(Animal animal) throws BusinessException {
+    public void validate(Animal animal) throws Exception {
         if (animal.getEarring() == null || animal.getEarring().isBlank()) {
             throw new BusinessException("Invalid earring!");
         }
@@ -32,7 +32,7 @@ public class AnimalSchemaValidation {
         }
     }
 
-    public void validateEarrings(List<String> animals) throws BusinessException {
+    public void validateEarrings(List<String> animals) throws Exception {
         for (String earring : animals) {
             Animal animal = animalRepository.getByEarring(earring);
             if (animal == null) {

@@ -1,6 +1,5 @@
 package com.jetbovapi.domain.area.service;
 
-import com.jetbovapi.domain.exception.BusinessException;
 import com.jetbovapi.domain.area.model.Area;
 import com.jetbovapi.domain.area.AreaRepository;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,12 @@ public class AreaService {
         this.areaSchemaValidation = areaSchemaValidation;
     }
 
-    public void saveArea(Area area) throws BusinessException {
+    public void saveArea(Area area) throws Exception {
         areaSchemaValidation.validate(area);
         areaRepository.save(area);
     }
 
-    public List<Area> getAllAreas() {
+    public List<Area> getAllAreas() throws Exception {
         return areaRepository.getAll();
     }
 }

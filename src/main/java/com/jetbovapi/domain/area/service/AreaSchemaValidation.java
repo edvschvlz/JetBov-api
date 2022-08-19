@@ -14,7 +14,7 @@ public class AreaSchemaValidation {
         this.areaRepository = areaRepository;
     }
 
-    public void validate(Area area) throws BusinessException {
+    public void validate(Area area) throws Exception {
         if (area.getName() == null || area.getName().isBlank()) {
             throw new BusinessException("Invalid name!");
         }

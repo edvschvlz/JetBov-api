@@ -3,16 +3,20 @@
 - [Technologies](#technologies)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [You can access](#you-can-access)
+- [API Reference](#api-reference)
 
 ## Technologies
 
 - Spring Boot
+- Flyway
+- DBCP
+- MySQL
 - Swagger
 
 ## Requirements
 
 - Java >= 17
+- MySQL 8.0
 - Maven 3.8.5
 
 ## Installation
@@ -23,29 +27,22 @@
     git clone https://github.com/edvschvlz/JetBov-api.git
     ```
 
-2. Install dependencies
+2. Change `application.properties.example` to `application.properties` and set the database connection
+
+
+3. Install dependencies
 
     ```sh
     mvn clean package
     ```
 
-3. Run the application
+4. Run the application
 
     ```sh
     mvn spring-boot:run
     ```
 
-4. The application will be exposed on port `8080`
-
-## Run using docker
-
-1. Building docker image
-   `docker build -t jetbov-api:1 .`
-
-2. Running the image
-   `docker run -p 8080:8080 jetbov-api:1 -d`
-
-3. The application will be exposed on port `8080`
+5. The application will be exposed on port `8080`
 
 ## API Reference
 
